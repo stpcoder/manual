@@ -2,7 +2,7 @@
 
 ## 9.1 개요
 
-본 장은 시스템의 각 모듈이 제공하는 공개(public) 함수 및 클래스의 인터페이스를 기술한다. 각 항목에 대해 함수 시그니처, 매개변수 설명, 반환값 명세를 포함한다.
+본 장은 시스템의 각 모듈이 제공하는 공개(public) 함수 및 클래스의 인터페이스를 기술합니다. 각 항목에 대해 함수 시그니처, 매개변수 설명, 반환값 명세를 포함합니다.
 
 ## 9.2 코어 계층 API
 
@@ -10,7 +10,7 @@
 
 소스 파일: gui_app/src/core/detector.py
 
-Detector는 알고리즘 계층의 함수들을 감싸는 래퍼 클래스이다. GUI와 알고리즘 사이의 어댑터 역할을 수행한다.
+Detector는 알고리즘 계층의 함수들을 감싸는 래퍼 클래스입니다. GUI와 알고리즘 사이의 어댑터 역할을 수행합니다.
 
 #### Detector.auto_extract_color()
 
@@ -19,11 +19,11 @@ Detector는 알고리즘 계층의 함수들을 감싸는 래퍼 클래스이다
 def auto_extract_color(image_path: str, image: numpy.ndarray = None) -> str
 ```
 
-이미지에서 손상 부위(구멍)의 대표 색상을 자동으로 추출한다. 이미지의 상위 1% 밝기 픽셀을 분석하여 대표 색상을 결정한다.
+이미지에서 손상 부위(구멍)의 대표 색상을 자동으로 추출합니다. 이미지의 상위 1% 밝기 픽셀을 분석하여 대표 색상을 결정합니다.
 
 매개변수:
-- image_path (str): 이미지 파일 경로. image 매개변수가 None인 경우 이 경로에서 이미지를 로드한다.
-- image (numpy.ndarray, 선택적): BGR 형식의 이미지 배열. 제공 시 파일 로드를 생략한다.
+- image_path (str): 이미지 파일 경로. image 매개변수가 None인 경우 이 경로에서 이미지를 로드합니다.
+- image (numpy.ndarray, 선택적): BGR 형식의 이미지 배열. 제공 시 파일 로드를 생략합니다.
 
 반환값:
 - str: 16진수 색상 문자열 (예: "#DBCFBF")
@@ -42,19 +42,19 @@ def detect(
 ) -> tuple[list[dict], list[str]]
 ```
 
-기본 HSV 색공간 기반으로 손상 부위를 검출한다.
+기본 HSV 색공간 기반으로 손상 부위를 검출합니다.
 
 매개변수:
 - image_path (str): 입력 이미지 파일 경로
-- hsv_saturation (int): HSV 채도(S) 임계값. 이 값 미만의 채도를 가진 픽셀이 후보로 선택된다. 기본값 30.
-- hsv_value (int): HSV 밝기(V) 임계값. 이 값 초과의 밝기를 가진 픽셀이 후보로 선택된다. 기본값 200.
-- min_area (int): 최소 면적 필터. 이 값 미만의 면적을 가진 윤곽선은 제거된다. 단위: 제곱 픽셀. 기본값 100.
-- max_area (int): 최대 면적 필터. 이 값 초과의 면적을 가진 윤곽선은 제거된다. 단위: 제곱 픽셀. 기본값 500000.
+- hsv_saturation (int): HSV 채도(S) 임계값. 이 값 미만의 채도를 가진 픽셀이 후보로 선택됩니다. 기본값 30.
+- hsv_value (int): HSV 밝기(V) 임계값. 이 값 초과의 밝기를 가진 픽셀이 후보로 선택됩니다. 기본값 200.
+- min_area (int): 최소 면적 필터. 이 값 미만의 면적을 가진 윤곽선은 제거됩니다. 단위: 제곱 픽셀. 기본값 100.
+- max_area (int): 최대 면적 필터. 이 값 초과의 면적을 가진 윤곽선은 제거됩니다. 단위: 제곱 픽셀. 기본값 500000.
 - progress_callback (callable, 선택적): 진행률 콜백 함수. f(percent: int, message: str) 형식.
 
 반환값:
 - tuple[list[dict], list[str]]: (holes, svg_paths) 튜플.
-  - holes: Hole Dict 리스트. 각 요소는 id, bbox, area, center, contour 필드를 포함한다.
+  - holes: Hole Dict 리스트. 각 요소는 id, bbox, area, center, contour 필드를 포함합니다.
   - svg_paths: 각 구멍에 대응하는 SVG path 문자열 리스트.
 
 #### Detector.detect_with_filters()
@@ -71,14 +71,14 @@ def detect_with_filters(
 ) -> tuple[list[dict], list[str]]
 ```
 
-사용자 정의 필터 설정 또는 학습된 GMM 모델을 기반으로 손상 부위를 검출한다. GMM 모델이 학습된 상태인 경우 Mahalanobis 거리 기반 분류를 우선 적용한다.
+사용자 정의 필터 설정 또는 학습된 GMM 모델을 기반으로 손상 부위를 검출합니다. GMM 모델이 학습된 상태인 경우 Mahalanobis 거리 기반 분류를 우선 적용합니다.
 
 매개변수:
 - image_path (str): 입력 이미지 파일 경로
-- filter_settings (dict, 선택적): Filter Settings Dict. None인 경우 기본 필터 설정을 사용한다.
+- filter_settings (dict, 선택적): Filter Settings Dict. None인 경우 기본 필터 설정을 사용합니다.
 - min_area (int): 최소 면적 필터. 기본값 100.
 - max_area (int): 최대 면적 필터. 기본값 500000.
-- boundary_detection (bool): 문서 경계 검출 사용 여부. 기본값 True.
+- boundary_detection (bool): 작품 경계 검출 사용 여부. 기본값 True.
 - progress_callback (callable, 선택적): 진행률 콜백 함수.
 
 반환값:
@@ -95,18 +95,18 @@ def analyze_regions(
 ) -> dict
 ```
 
-사용자가 지정한 다수의 배경(구멍) 영역과 전경(그림) 영역의 색상 분포를 분석하여 GMM 모델을 학습하고, 각 채널별 최적 임계값을 계산한다.
+사용자가 지정한 다수의 배경(구멍) 영역과 전경(그림) 영역의 색상 분포를 분석하여 GMM 모델을 학습하고, 각 채널별 최적 임계값을 계산합니다.
 
 매개변수:
 - image_path (str): 입력 이미지 파일 경로
 - bg_boxes (tuple 또는 list): 배경 영역 좌표. 단일 (x1, y1, x2, y2) 튜플 또는 해당 튜플의 리스트.
-- fg_boxes (tuple 또는 list): 전경 영역 좌표. 형식은 bg_boxes와 동일.
+- fg_boxes (tuple 또는 list): 전경 영역 좌표. 형식은 bg_boxes와 동일합니다.
 
 반환값:
-- dict: Analysis Results Dict. 각 채널(S, L, b 등)에 대해 threshold, condition, separation, bg_mean, bg_std, fg_mean, fg_std를 포함한다.
+- dict: Analysis Results Dict. 각 채널(S, L, b 등)에 대해 threshold, condition, separation, bg_mean, bg_std, fg_mean, fg_std를 포함합니다.
 
 부수 효과:
-- 내부의 _region_model 속성에 GMM 모델이 저장된다. 이후 detect_with_filters() 호출 시 이 모델이 자동으로 적용된다.
+- 내부의 _region_model 속성에 GMM 모델이 저장됩니다. 이후 detect_with_filters() 호출 시 이 모델이 자동으로 적용됩니다.
 
 #### Detector.get_mask()
 
@@ -114,7 +114,7 @@ def analyze_regions(
 def get_mask(self) -> numpy.ndarray
 ```
 
-가장 최근 검출에서 생성된 이진 마스크를 반환한다.
+가장 최근 검출에서 생성된 이진 마스크를 반환합니다.
 
 반환값:
 - numpy.ndarray: uint8 단일 채널 이진 마스크. 값 0(배경) 또는 255(손상 부위).
@@ -125,10 +125,10 @@ def get_mask(self) -> numpy.ndarray
 def get_boundary(self) -> numpy.ndarray
 ```
 
-가장 최근 검출에서 감지된 문서 경계 윤곽선을 반환한다.
+가장 최근 검출에서 감지된 작품 경계 윤곽선을 반환합니다.
 
 반환값:
-- numpy.ndarray 또는 None: 문서 경계 윤곽선. 경계가 감지되지 않은 경우 None.
+- numpy.ndarray 또는 None: 작품 경계 윤곽선. 경계가 감지되지 않은 경우 None.
 
 ## 9.3 알고리즘 계층 API
 
@@ -151,7 +151,7 @@ def detect_whiteness(
 ) -> tuple[numpy.ndarray, dict]
 ```
 
-이미지에서 손상 부위(흰색/밝은 영역)를 검출하여 이진 마스크를 생성한다.
+이미지에서 손상 부위(흰색/밝은 영역)를 검출하여 이진 마스크를 생성합니다.
 
 매개변수:
 - image (numpy.ndarray): BGR 형식의 입력 이미지
@@ -160,7 +160,7 @@ def detect_whiteness(
 - v_threshold (int): HSV 밝기 임계값. 기본값 200.
 - b_threshold (int): LAB b 채널 임계값. 기본값 138.
 - whiteness_threshold (float): Whiteness Score 임계값. 기본값 0.85.
-- detect_boundary (bool): 문서 경계 검출 사용 여부. 기본값 True.
+- detect_boundary (bool): 작품 경계 검출 사용 여부. 기본값 True.
 - progress_callback (callable, 선택적): 진행률 콜백 함수.
 
 반환값:
@@ -180,17 +180,17 @@ def extract_individual_holes(
 ) -> list[dict]
 ```
 
-이진 마스크에서 개별 손상 부위를 추출한다.
+이진 마스크에서 개별 손상 부위를 추출합니다.
 
 매개변수:
 - image (numpy.ndarray): BGR 형식의 원본 이미지
 - mask (numpy.ndarray): uint8 이진 마스크
 - min_area (int): 최소 면적 필터. 기본값 100.
 - max_area (int): 최대 면적 필터. 기본값 500000.
-- boundary (numpy.ndarray, 선택적): 문서 경계 윤곽선. 제공 시 경계 외부의 윤곽선을 제거한다.
+- boundary (numpy.ndarray, 선택적): 작품 경계 윤곽선. 제공 시 경계 외부의 윤곽선을 제거합니다.
 
 반환값:
-- list[dict]: Hole Dict 리스트. 각 요소는 id, bbox, area, center, contour를 포함한다.
+- list[dict]: Hole Dict 리스트. 각 요소는 id, bbox, area, center, contour를 포함합니다.
 
 #### contour_to_svg_path()
 
@@ -202,11 +202,11 @@ def contour_to_svg_path(
 ) -> str
 ```
 
-OpenCV 윤곽선을 SVG path 문자열로 변환한다.
+OpenCV 윤곽선을 SVG path 문자열로 변환합니다.
 
 매개변수:
 - contour (numpy.ndarray): OpenCV 형식의 윤곽선 배열 (N, 1, 2)
-- scale_factors (dict, 선택적): {'x': float, 'y': float} 형식의 스케일 계수. 제공 시 좌표를 실제 밀리미터로 변환한다.
+- scale_factors (dict, 선택적): {'x': float, 'y': float} 형식의 스케일 계수. 제공 시 좌표를 실제 밀리미터로 변환합니다.
 - simplification (float): Ramer-Douglas-Peucker 단순화 계수. 기본값 0.1.
 
 반환값:
@@ -218,13 +218,13 @@ OpenCV 윤곽선을 SVG path 문자열로 변환한다.
 def detect_document_boundary(image: numpy.ndarray) -> dict
 ```
 
-스캔 이미지에서 실제 문서 영역의 경계를 자동으로 감지한다.
+스캔 이미지에서 실제 작품 영역의 경계를 자동으로 감지합니다.
 
 매개변수:
 - image (numpy.ndarray): BGR 형식의 입력 이미지
 
 반환값:
-- dict: 경계 정보. contour(윤곽선), mask(경계 마스크) 등을 포함한다.
+- dict: 경계 정보. contour(윤곽선), mask(경계 마스크) 등을 포함합니다.
 
 ### 9.3.2 spatial_numbering 모듈
 
@@ -242,10 +242,10 @@ def assign_spatial_numbers(
 ) -> list[dict]
 ```
 
-검출된 손상 부위에 공간적 위치 기반 번호를 부여한다.
+검출된 손상 부위에 공간적 위치 기반 번호를 부여합니다.
 
 매개변수:
-- holes (list[dict]): Hole Dict 리스트. 각 요소에 bbox 또는 center 필드가 필요하다.
+- holes (list[dict]): Hole Dict 리스트. 각 요소에 bbox 또는 center 필드가 필요합니다.
 - method (str): 번호 부여 방식. 'grid'(격자 기반), 'row'(행 기반), 'column'(열 기반). 기본값 'grid'.
 - grid_size (int): 격자 셀 크기. 단위: 픽셀. 기본값 500.
 - direction (str): 정렬 방향. 'ltr_ttb'(좌상단에서 우하단), 'rtl_ttb', 'ttb_ltr', 'ttb_rtl'. 기본값 'ltr_ttb'.
@@ -263,7 +263,7 @@ def cluster_by_grid(
 ) -> list[list[dict]]
 ```
 
-구멍을 격자 셀 단위로 그룹핑한다.
+구멍을 격자 셀 단위로 그룹핑합니다.
 
 매개변수:
 - holes (list[dict]): Hole Dict 리스트
@@ -283,14 +283,14 @@ class BinPacker2D:
     def __init__(self, width: float, height: float)
 ```
 
-Skyline Bin Packing 알고리즘을 구현하는 클래스.
+Skyline Bin Packing 알고리즘을 구현하는 클래스입니다.
 
 생성자 매개변수:
 - width (float): 용지 유효 너비 (mm)
 - height (float): 용지 유효 높이 (mm)
 
 주요 메서드:
-- pack_piece(piece_width, piece_height) -> tuple 또는 None: 조각을 배치하고 (x, y) 좌표를 반환한다. 배치 불가능 시 None.
+- pack_piece(piece_width, piece_height) -> tuple 또는 None: 조각을 배치하고 (x, y) 좌표를 반환합니다. 배치 불가능 시 None을 반환합니다.
 
 #### pack_pieces_to_pages()
 
@@ -305,7 +305,7 @@ def pack_pieces_to_pages(
 ) -> list
 ```
 
-다수의 조각을 다중 페이지에 걸쳐 배치한다.
+다수의 조각을 다중 페이지에 걸쳐 배치합니다.
 
 매개변수:
 - pieces (list): 조각 데이터 리스트
@@ -332,7 +332,7 @@ def create_restoration_guide(
 ) -> None
 ```
 
-원본 이미지 위에 손상 부위 번호를 오버레이한 복원 가이드 이미지를 생성한다.
+원본 이미지 위에 손상 부위 번호를 오버레이한 복원 가이드 이미지를 생성합니다.
 
 매개변수:
 - image (numpy.ndarray): BGR 형식의 원본 이미지
@@ -352,7 +352,7 @@ def create_restoration_guide(
 def analyze_image_colors(image: numpy.ndarray) -> dict
 ```
 
-이미지의 색상 분포를 분석하여 통계 데이터를 반환한다.
+이미지의 색상 분포를 분석하여 통계 데이터를 반환합니다.
 
 매개변수:
 - image (numpy.ndarray): BGR 형식의 입력 이미지
@@ -366,7 +366,7 @@ def analyze_image_colors(image: numpy.ndarray) -> dict
 def get_threshold_recommendation(analysis: dict) -> dict
 ```
 
-색상 분석 결과를 기반으로 최적 검출 임계값을 추천한다.
+색상 분석 결과를 기반으로 최적 검출 임계값을 추천합니다.
 
 매개변수:
 - analysis (dict): analyze_image_colors()의 반환값
@@ -378,7 +378,7 @@ def get_threshold_recommendation(analysis: dict) -> dict
 
 소스 파일: main/restoration_workflow.py
 
-CLI 전용 모듈로서 argparse를 통해 명령줄 인자를 처리하고, 검출-레이아웃-가이드 전체 파이프라인을 순차적으로 실행한다. CLI 사용법은 제6장을 참조한다.
+CLI 전용 모듈로서 argparse를 통해 명령줄 인자를 처리하고, 검출-레이아웃-가이드 전체 파이프라인을 순차적으로 실행합니다. CLI 사용법은 제6장을 참조합니다.
 
 ## 9.4 GUI 계층 위젯 API
 
@@ -396,12 +396,12 @@ CLI 전용 모듈로서 argparse를 통해 명령줄 인자를 처리하고, 검
 - deselect_area_selected(tuple): (x1, y1, x2, y2) 선택 해제 영역
 
 주요 메서드:
-- load_image(path: str) -> numpy.ndarray: 이미지를 로드하고 표시한다.
-- set_holes(holes: list, svg_paths: list) -> None: SVG 오버레이를 표시한다.
-- set_hole_active(index: int, active: bool) -> None: 개별 구멍의 활성/비활성 상태를 설정한다.
-- zoom_to_hole_id(hole_id: int) -> None: 지정된 번호의 구멍으로 화면을 이동한다.
-- fit_to_window() -> None: 이미지를 뷰 크기에 맞춘다.
-- start_region_selection(mode: int) -> None: 영역 선택 모드를 시작한다.
+- load_image(path: str) -> numpy.ndarray: 이미지를 로드하고 표시합니다.
+- set_holes(holes: list, svg_paths: list) -> None: SVG 오버레이를 표시합니다.
+- set_hole_active(index: int, active: bool) -> None: 개별 구멍의 활성/비활성 상태를 설정합니다.
+- zoom_to_hole_id(hole_id: int) -> None: 지정된 번호의 구멍으로 화면을 이동합니다.
+- fit_to_window() -> None: 이미지를 뷰 크기에 맞춥니다.
+- start_region_selection(mode: int) -> None: 영역 선택 모드를 시작합니다.
 
 ### 9.4.2 LayoutViewer 클래스
 
@@ -415,11 +415,11 @@ CLI 전용 모듈로서 argparse를 통해 명령줄 인자를 처리하고, 검
 - loading_finished(): 레이아웃 계산 완료
 
 주요 메서드:
-- set_holes(holes: list, svg_paths: list) -> None: 구멍 데이터를 설정하고 레이아웃을 실행한다.
-- export_layout_images(output_folder: str) -> None: 300 DPI PNG 파일로 내보낸다.
-- export_layout_svg(output_folder: str) -> None: SVG 벡터 파일로 내보낸다.
-- get_layout_data() -> dict: 레이아웃 메타데이터를 반환한다.
-- get_failed_pieces() -> list: 배치 실패한 조각 번호 리스트를 반환한다.
+- set_holes(holes: list, svg_paths: list) -> None: 구멍 데이터를 설정하고 레이아웃을 실행합니다.
+- export_layout_images(output_folder: str) -> None: 300 DPI PNG 파일로 내보냅니다.
+- export_layout_svg(output_folder: str) -> None: SVG 벡터 파일로 내보냅니다.
+- get_layout_data() -> dict: 레이아웃 메타데이터를 반환합니다.
+- get_failed_pieces() -> list: 배치 실패한 조각 번호 리스트를 반환합니다.
 
 ### 9.4.3 ControlPanel 클래스
 
@@ -445,9 +445,9 @@ CLI 전용 모듈로서 argparse를 통해 명령줄 인자를 처리하고, 검
 부모 클래스: QWidget
 
 주요 메서드:
-- get_filter_settings() -> dict: 현재 필터 설정을 Filter Settings Dict 형식으로 반환한다.
-- set_filter_settings(settings: dict) -> None: 필터 설정을 적용한다.
-- set_model_status(has_model: bool, n_bg: int, n_fg: int) -> None: GMM 모델 상태를 표시한다.
+- get_filter_settings() -> dict: 현재 필터 설정을 Filter Settings Dict 형식으로 반환합니다.
+- set_filter_settings(settings: dict) -> None: 필터 설정을 적용합니다.
+- set_model_status(has_model: bool, n_bg: int, n_fg: int) -> None: GMM 모델 상태를 표시합니다.
 
 ## 9.5 Worker 클래스 API
 

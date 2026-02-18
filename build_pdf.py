@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-고문서 손상 영역 인식 시스템 -- Markdown to PDF 변환 스크립트
+한국화 손상 영역 인식 시스템 -- Markdown to PDF 변환 스크립트
 
 본 스크립트는 docs/manual/ 디렉토리 내의 모든 챕터 Markdown 파일을
-단일 PDF 문서로 병합하여 출력한다.
+단일 PDF 문서로 병합하여 출력합니다.
 
 의존성:
     pip install markdown weasyprint
@@ -42,7 +42,7 @@ CSS_STYLE = """
     margin: 25mm 20mm 25mm 20mm;
 
     @top-center {
-        content: "고문서 손상 영역 인식 시스템 기술 문서";
+        content: "한국화 손상 영역 인식 시스템 기술 문서";
         font-family: 'Noto Sans KR', sans-serif;
         font-size: 8pt;
         color: #888888;
@@ -249,16 +249,19 @@ blockquote {
 
 
 def build_cover_page():
-    """표지 페이지 HTML을 생성한다."""
+    """표지 페이지 HTML을 생성합니다."""
     from datetime import date
     today = date.today().strftime("%Y년 %m월")
 
     return f"""
 <div class="cover-page">
-    <div class="cover-title">고문서 손상 영역 인식 시스템</div>
-    <div class="cover-subtitle">Ancient Document Damage Detection System</div>
+    <div class="cover-title">한국화 손상 영역 인식 시스템</div>
+    <div class="cover-subtitle">Korean Painting Damage Detection System</div>
     <div class="cover-subtitle">기술 문서</div>
     <div class="cover-info">
+        포항공과대학교(POSTECH) 임지훈, 제태호<br>
+        리움미술관 협력<br>
+        <br>
         버전 1.0<br>
         {today}<br>
     </div>
@@ -267,7 +270,7 @@ def build_cover_page():
 
 
 def build_toc_page():
-    """목차 페이지 HTML을 생성한다."""
+    """목차 페이지 HTML을 생성합니다."""
     toc_items = [
         ("제1장", "프로젝트 개요"),
         ("제2장", "시스템 구조"),
@@ -297,7 +300,7 @@ def build_toc_page():
 
 
 def merge_markdown_files(manual_dir):
-    """모든 챕터 파일을 하나의 Markdown 문자열로 병합한다."""
+    """모든 챕터 파일을 하나의 Markdown 문자열로 병합합니다."""
     merged = []
     for chapter_file in CHAPTERS:
         filepath = manual_dir / chapter_file
@@ -310,7 +313,7 @@ def merge_markdown_files(manual_dir):
 
 
 def markdown_to_html(md_text):
-    """Markdown 텍스트를 HTML로 변환한다."""
+    """Markdown 텍스트를 HTML로 변환합니다."""
     try:
         import markdown
     except ImportError:
@@ -343,7 +346,7 @@ def markdown_to_html(md_text):
 
 
 def build_full_html(body_html):
-    """완전한 HTML 문서를 구성한다."""
+    """완전한 HTML 문서를 구성합니다."""
     cover = build_cover_page()
     toc = build_toc_page()
 
@@ -351,7 +354,7 @@ def build_full_html(body_html):
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>고문서 손상 영역 인식 시스템 기술 문서</title>
+    <title>한국화 손상 영역 인식 시스템 기술 문서</title>
     <style>
 {CSS_STYLE}
     </style>
@@ -365,7 +368,7 @@ def build_full_html(body_html):
 
 
 def html_to_pdf(html_content, output_path):
-    """HTML을 PDF로 변환한다."""
+    """HTML을 PDF로 변환합니다."""
     try:
         from weasyprint import HTML
     except ImportError:
@@ -388,12 +391,12 @@ def html_to_pdf(html_content, output_path):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="고문서 손상 영역 인식 시스템 기술 문서 PDF 생성"
+        description="한국화 손상 영역 인식 시스템 기술 문서 PDF 생성"
     )
     parser.add_argument(
         "--output",
-        default="고문서_손상영역_인식시스템_기술문서.pdf",
-        help="출력 PDF 파일명 (기본값: 고문서_손상영역_인식시스템_기술문서.pdf)",
+        default="한국화_손상영역_인식시스템_기술문서.pdf",
+        help="출력 PDF 파일명 (기본값: 한국화_손상영역_인식시스템_기술문서.pdf)",
     )
     parser.add_argument(
         "--html-only",

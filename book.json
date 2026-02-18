@@ -1,6 +1,6 @@
 {
-    "title": "고문서 손상 영역 인식 시스템 기술 문서",
-    "description": "Ancient Document Damage Detection System - 기술 매뉴얼 및 API 레퍼런스",
+    "title": "한국화 손상 영역 인식 시스템 기술 문서",
+    "description": "Korean Painting Damage Detection System - 기술 매뉴얼 및 API 레퍼런스",
     "language": "ko",
     "gitbook": ">=3.2.0",
     "structure": {
